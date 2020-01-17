@@ -42,8 +42,8 @@ public class Computer
         private int nextMove(GameState state, int alpha, int beta, int depth, boolean maximiser)
         {
                 char player = state.hasWon();
-                if (player == 'Y') return 10000;
-                if (player == 'R') return -10000;
+                if (player == 'Y') return 10000 + depth;
+                if (player == 'R') return -10000 - depth;
                 if (state.isDraw()) return 0;
                 if (depth <= 0) return utility(state);
 

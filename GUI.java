@@ -100,20 +100,20 @@ public class GUI extends JPanel
 	                    playerWonText.setText("Draw!");
 	                    playerWonText.setBounds(260, 450, 130, 40);
 	            } else if (game.player()) {
-	                    playerWonText.setText("Red has won!");
-	                    playerWonText.setBounds(260, 500, 130, 40);
-	                    redNumText.setText(Integer.toString(++redWinCount));
-	            } else {
-	                    playerWonText.setText("Yellow has won!");
+		            	playerWonText.setText("Yellow has won!");
 	                    playerWonText.setBounds(247, 500, 157, 40);
 	                    yellowNumText.setText(Integer.toString(++yellowWinCount));
+	            } else {
+		            	playerWonText.setText("Red has won!");
+	                    playerWonText.setBounds(260, 500, 130, 40);
+	                    redNumText.setText(Integer.toString(++redWinCount));
 	            }
 
 	            playerWonText.setFont(new Font("", Font.BOLD, 20));
 	            add(playerWonText);
-	
+
 	            clear.setText("Play again? (r)");
-	
+
 	            invisibleButtons();
 		}
 
@@ -148,9 +148,9 @@ public class GUI extends JPanel
                         g.drawLine(lineX, lineY + (i*55), lineX + 7*55, lineY + (i*55));
 
                 if (game.player())
-                        g.setColor(yellow);
-                else
                         g.setColor(Color.RED);
+                else
+                        g.setColor(yellow);
 
                 g.fillRect(275, 35, 100, 10);
 
@@ -163,7 +163,7 @@ public class GUI extends JPanel
                                                 g.setColor(Color.RED);
                                         g.fillOval(lineX + 8 + (j * 55), lineY + 8 + 5*55 - (i * 55), 40, 40);
                                 }
-                        }       
+                        }
                 }
         }
 }

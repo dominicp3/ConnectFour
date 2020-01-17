@@ -1,15 +1,14 @@
 public class Game {
 		private GameState state = new GameState();
 	    private Computer computer = new Computer(9);
-	    private boolean player = false; // false = player, true = cpu
-        private int status = 0;         // 0 = running, 1 = draw, 2 = won
+	    private boolean player = true;  // true = player, false = CPU
+        private int status = 0;         // 0 = mid game, 1 = draw, 2 = won
 
         public boolean playerMove(int column)
         {
-        		if (state.isFull(column) || status != 0 || !state.setColumn(column, player ? 'Y' : 'R')) {
+        		if (status != 0 || state.isFull(column) || !state.setColumn(column, player ? 'R' : 'Y'))
         				return false;
-        		}
-        		
+
         		player = !player;
 
         		if (state.hasWon() != 0) {
@@ -30,7 +29,7 @@ public class Game {
         		if (status != 0) return;
 	    		state = computer.nextBoard(state, 'Y');
 	    		player = !player;
-    			
+
     			if (state.hasWon() != 0) {
 	    				status = 2;
 	    				return;
@@ -60,7 +59,7 @@ public class Game {
         public void reset()
         {
         		status = 0;
-        		player = false;
+        		player = true;
         		state = new GameState();
         }
 }

@@ -1,6 +1,6 @@
 import javax.swing.SwingUtilities;
 
-public class MainClass
+public class ConnectFour
 {
         public static void main(String[] args)
         {

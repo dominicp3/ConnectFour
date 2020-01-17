@@ -7,13 +7,12 @@ public class Controller
 		private JFrame frame;
 	    private GUI gui;
 	    private KeyListener keyStroke;
-
-	    AiThread ai;
+	    
 		private Game game = new Game();
         private boolean PvP = false; // PvP = player v player
 
-        private static int FRAME_WIDTH = 650;
-        private static int FRAME_HEIGHT = 600;
+        private static int FRAME_WIDTH = 650;    // 650
+        private static int FRAME_HEIGHT = 600;   // 600
 
         private JCheckBox box;
 
@@ -43,6 +42,17 @@ public class Controller
 
 	            frame.getContentPane().add(gui);
 	            frame.setVisible(true);
+		}
+
+		private boolean isGameOver()
+		{
+				if (game.status() != 0) {
+						gui.endScreen();
+						frame.repaint();
+						return true;
+				}
+				frame.repaint();
+				return false;
 		}
 
 		public class ButtonListener implements ActionListener
@@ -77,23 +87,17 @@ public class Controller
 	                    		frame.repaint();
 	                    }
 
-//              		if game is over return
-	                    if (game.status() != 0)
-	    						return;
-
 //              		number input
 	                    if (e.getKeyChar() > 48 && e.getKeyChar() < 56) {
-	                    		boolean valid = false;
-	                    		if (PvP || (!PvP && !game.player()))
-	                    				valid = game.playerMove(e.getKeyChar() - 49);
+	                    		if (PvP || game.player())
+	                    				if (!game.playerMove(e.getKeyChar() - 49))
+	                    						return;
 
-	                    		frame.repaint();
-	                    		if (!valid) return;
+	                    		if (isGameOver())
+	                    				return;
 
-	                    		if (!PvP) {
-	                        			ai = new AiThread();
-		                        		ai.start();
-	                    		}
+	                    		if (!PvP)
+	                    				new AiThread().start();
 	                    }
                 }
 
@@ -109,12 +113,7 @@ public class Controller
 				public void run()
 				{
 						game.cpuMove();
-						frame.repaint();
-
-						if (game.status() != 0) {
-								gui.endScreen();
-								frame.repaint();
-						}
+						isGameOver();
 				}
 		}
 }

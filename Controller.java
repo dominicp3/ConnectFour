@@ -96,9 +96,10 @@ public class Controller
 
                         // number input
                         if (e.getKeyChar() > 48 && e.getKeyChar() < 56) {
-                                if (PvP || game.player())
+                                if (PvP || game.player()) {
                                         if (!game.playerMove(e.getKeyChar() - 49))
                                                 return;
+                                } else return;
 
                                 if (isGameOver())
                                         return;

@@ -6,7 +6,7 @@ public class GameState
 
         public GameState()
         {
-                grid = new char[numRow][numCol];                
+                grid = new char[numRow][numCol];
                 for (int i = 0; i < numRow; i++) {
                         for (int j = 0; j < numCol; j++)
                                 grid[i][j] = 0;
@@ -21,14 +21,14 @@ public class GameState
         public char[] getColumn(int column)
         {
                 char[] temp;
-                
+
                 if (column < 0 || column > numCol) return null;
-                
+
                 temp = new char[numRow];
-                
+
                 for (int i = 0; i < numRow; i++)
                         temp[i] = grid[i][column];
-                
+
                 return temp;
         }
 
@@ -49,15 +49,15 @@ public class GameState
                         for (int c = 0; c < numCol; c++)
                                 this.grid[r][c] = board[r][c];
                 }
-                
+
                 return true;
         }
 
         public boolean isFull(int column)
         {
-                for (int r = 0; r < numRow; r++)     
-                        if (grid[r][column] == 0) return false;     
-                
+                for (int r = 0; r < numRow; r++)
+                        if (grid[r][column] == 0) return false;
+
                 return true;
         }
 
@@ -80,16 +80,16 @@ public class GameState
 
         public char hasWon()
         {
-//              Horizontal
+                //              Horizontal
                 for (int r = 0; r < numRow; r++) {
                         for (int c = 0; c < numCol-3; c++) {
                                 if (grid[r][c] == 0) continue;
-                                if (grid[r][c] == grid[r][c+1] && grid[r][c+1] == grid[r][c+2] && grid[r][c+2] == grid[r][c+3])              
+                                if (grid[r][c] == grid[r][c+1] && grid[r][c+1] == grid[r][c+2] && grid[r][c+2] == grid[r][c+3])
                                         return grid[r][c];
                         }
                 }
-                
-//              Vertical
+
+                //              Vertical
                 for (int r = 0; r < numRow-3; r++) {
                         for (int c = 0; c < numCol; c++) {
                                 if (grid[r][c] == 0) continue;
@@ -97,8 +97,8 @@ public class GameState
                                         return grid[r][c];
                         }
                 }
-                
-//              Diagonal (positive slope)
+
+                //              Diagonal (positive slope)
                 for (int r = 0; r < numRow-3; r++) {
                         for (int c = 0; c < numCol-3; c++) {
                                 if (grid[r][c] == 0) continue;
@@ -106,8 +106,8 @@ public class GameState
                                         return grid[r][c];
                         }
                 }
-                
-//              Diagonal (negative slope)
+
+                //              Diagonal (negative slope)
                 for (int r = 0; r < numRow-3; r++) {
                         for (int c = 3; c < numCol; c++) {
                                 if (grid[r][c] == 0) continue;
@@ -115,30 +115,30 @@ public class GameState
                                         return grid[r][c];
                         }
                 }
-                
+
                 return 0;
         }
 
         public GameState getCopy()
         {
-                return new GameState(getBoard()); 
+                return new GameState(getBoard());
         }
 
         public void printBoard()
         {
                 for (int r = grid.length - 1; r >= 0; r--) {
                         for (int c = 0; c < grid[0].length; c++) {
-                                
+
                                 if (c + 1 == grid[0].length) {
                                         System.out.printf("%c|\n", grid[r][c]);
                                         break;
                                 }
-                                
+
                                 if (c == 0)
                                         System.out.printf("|%c, ", grid[r][c]);
                                 else
                                         System.out.printf("%c, ", grid[r][c]);
-                                
+
                         }
                 }
         }

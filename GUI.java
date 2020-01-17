@@ -1,12 +1,16 @@
-import java.awt.*;
-import javax.swing.*;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class GUI extends JPanel
 {
-		private Game game;
+        private Game game;
 
-		private Color yellow = new Color(237, 223, 43);
+        private Color yellow = new Color(237, 223, 43);
 
         private JLabel redScoreText;
         private JLabel redNumText;
@@ -21,45 +25,45 @@ public class GUI extends JPanel
         private JLabel resetScore;
         private JLabel playerWonText;
 
-//      lineX = 132
+        // lineX = 132
         private int lineX;
 
-//      lineY = 135
-        private int lineY;        
+        // lineY = 135
+        private int lineY;
 
         public GUI(int frameWidth, int frameHeight, Game game)
         {
-        		this.game = game;
+                this.game = game;
 
                 lineX = (frameWidth - 7*55) / 2;
-                lineY = (frameHeight - 6*55) / 2;   
+                lineY = (frameHeight - 6*55) / 2;
                 this.setLayout(null);
 
                 redScoreText = new JLabel("Red Score");
-	            redScoreText.setBounds((lineX-60)/2, 80, 60, 20);
-	            add(redScoreText);
+                redScoreText.setBounds((lineX-60)/2, 80, 60, 20);
+                add(redScoreText);
 
-	            redNumText = new JLabel("0");
-	            redNumText.setBounds((lineX-16)/2, 110, 16, 20);
-	            redNumText.setFont(new Font("", Font.BOLD, 15));
-	            add(redNumText);
+                redNumText = new JLabel("0");
+                redNumText.setBounds((lineX-16)/2, 110, 16, 20);
+                redNumText.setFont(new Font("", Font.BOLD, 15));
+                add(redNumText);
 
-	            yellowScoreText = new JLabel("Yellow Score");
-	            yellowScoreText.setBounds(536, 80, 74, 20);
-	            add(yellowScoreText);
+                yellowScoreText = new JLabel("Yellow Score");
+                yellowScoreText.setBounds(536, 80, 74, 20);
+                add(yellowScoreText);
 
-	            yellowNumText = new JLabel("0");
-	            yellowNumText.setBounds(569, 110, 16, 20);
-	            yellowNumText.setFont(new Font("", Font.BOLD, 15));
-	            add(yellowNumText);
+                yellowNumText = new JLabel("0");
+                yellowNumText.setBounds(569, 110, 16, 20);
+                yellowNumText.setFont(new Font("", Font.BOLD, 15));
+                add(yellowNumText);
 
-	            addButtons();
+                addButtons();
         }
 
         private void addButtons()
-		{
-		        buttons = new JLabel[7];
-	                
+        {
+                buttons = new JLabel[7];
+
                 for (int i = 0; i < 7; i++) {
                         buttons[i] = new JLabel(Integer.toString(i + 1));
                         buttons[i].setBounds(lineX+(15/2)+16 + (i * 55), lineY + 6*55 + 10, 40, 20);
@@ -74,70 +78,70 @@ public class GUI extends JPanel
                 resetScore = new JLabel("Clear score (c)");
                 resetScore.setBounds(lineX, clear.getY() + 30, 123, 30);
                 add(resetScore);
-		}
+        }
 
         private void invisibleButtons()
-		{
-		        for (int i = 0; i < 7; i++)
+        {
+                for (int i = 0; i < 7; i++)
                         buttons[i].setVisible(false);
-		        
+
                 resetScore.setVisible(false);
-		}
+        }
 
-		private void visibleButtons()
-		{
-		        for (int i = 0; i < 7; i++)
+        private void visibleButtons()
+        {
+                for (int i = 0; i < 7; i++)
                         buttons[i].setVisible(true);
-		        
+
                 resetScore.setVisible(true);
-		}
+        }
 
-		public void endScreen()
-		{
-		        playerWonText = new JLabel();
+        public void endScreen()
+        {
+                playerWonText = new JLabel();
 
-	            if (game.status() == 1) {
-	                    playerWonText.setText("Draw!");
-	                    playerWonText.setBounds(260, 450, 130, 40);
-	            } else if (game.player()) {
-		            	playerWonText.setText("Yellow has won!");
-	                    playerWonText.setBounds(247, 500, 157, 40);
-	                    yellowNumText.setText(Integer.toString(++yellowWinCount));
-	            } else {
-		            	playerWonText.setText("Red has won!");
-	                    playerWonText.setBounds(260, 500, 130, 40);
-	                    redNumText.setText(Integer.toString(++redWinCount));
-	            }
+                if (game.status() == 1) {
+                        playerWonText.setText("Draw!");
+                        playerWonText.setBounds(260, 450, 130, 40);
+                } else if (game.player()) {
+                        playerWonText.setText("Yellow has won!");
+                        playerWonText.setBounds(247, 500, 157, 40);
+                        yellowNumText.setText(Integer.toString(++yellowWinCount));
+                } else {
+                        playerWonText.setText("Red has won!");
+                        playerWonText.setBounds(260, 500, 130, 40);
+                        redNumText.setText(Integer.toString(++redWinCount));
+                }
 
-	            playerWonText.setFont(new Font("", Font.BOLD, 20));
-	            add(playerWonText);
+                playerWonText.setFont(new Font("", Font.BOLD, 20));
+                add(playerWonText);
 
-	            clear.setText("Play again? (r)");
+                clear.setText("Play again? (r)");
 
-	            invisibleButtons();
-		}
+                invisibleButtons();
+        }
 
-		public void resetBoard()
-		{
-		        if (playerWonText != null)
-		        		remove(playerWonText);
-	            clear.setText("Clear (r)");
-	            visibleButtons();
-		}
+        public void resetBoard()
+        {
+                if (playerWonText != null)
+                        remove(playerWonText);
+                clear.setText("Clear (r)");
+                visibleButtons();
+        }
 
-		public void resetBoardScore()
-		{
-				redWinCount = 0;
-	            yellowWinCount = 0;
-	            redNumText.setText("0");
-	            yellowNumText.setText("0");
-	            resetBoard();
-		}
+        public void resetBoardScore()
+        {
+                redWinCount = 0;
+                yellowWinCount = 0;
+                redNumText.setText("0");
+                yellowNumText.setText("0");
+                resetBoard();
+        }
 
         @Override
         public void paintComponent(Graphics g)
         {
-        		char[][] grid = game.getState().getBoard();
+                char[][] grid = game.getState().getBoard();
 
                 // Vertical lines
                 for (int i = 0; i < 8; i++)
